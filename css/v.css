@@ -1,0 +1,95 @@
+/* The Talent Dept. · round 12 · v2 City (19 Oct 2026). "The city is what the rhythm makes."
+   Loaded after r10.css, r10-contrast.css and r11.css. */
+
+/* ---- hero: the Line of Sight a touch heavier (the book draws its dashes about a third of an em), so the city they
+   become stands tall without a single block changing size. The blocks are drawn by js/city.js. */
+.hl .dash{top:.585em;height:.22em}
+.far .row{top:calc(var(--k) * var(--lh) * 1em + .585em);height:.22em}
+@media (max-width:1199px){ .hl .dash{top:.57em;height:.25em} .far .row{top:calc(var(--k) * var(--lh) * 1em + .57em);height:.25em} }
+@media (max-width:760px){ .hl .dash{top:.56em;height:.27em} .far .row{top:calc(var(--k) * var(--lh) * 1em + .56em);height:.27em} }
+.js:not(.still) .hero4{height:360vh}
+@media (prefers-reduced-motion:reduce){
+  .js:not(.still) .hero4{height:auto}
+  .hl .dash{display:block;visibility:hidden}
+}
+.hero4 .sw{position:absolute;inset:0;pointer-events:none;z-index:2}
+.hero4 .sw i{position:absolute;display:block;background:var(--ink);transform-origin:50% 50%;will-change:transform}
+.hero4 .sw i.d{background:var(--draft)}
+.hero4 .sw i.c{background:var(--coral)}
+.hero4 .sw .gl{position:absolute;display:block;height:1.5px;background:var(--ink);transform-origin:0 50%;transform:scaleX(0)}
+.hero4.sw-on .hl .dash,.hero4.sw-on .far{visibility:hidden}
+
+/* ---- The Work: the seven services as a medium skyline. One cluster each on one ground line, the names set under
+   them, Talent Booking the Signal cluster. Every bar is a stack of floors, as in the hero. Choose one and it opens
+   below. Built once, floor by floor, when it first comes into view (js/svc.js). */
+.svc{padding:16vh var(--m) 16vh}
+.svc-city{--bw:clamp(5px,1.02vw,16px);--gp:calc(var(--bw) * .38);--fl:clamp(9px,1.08vw,17px);--sky:calc(16 * var(--fl));
+  position:relative;margin-top:13vh;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));column-gap:var(--g)}
+.svc-city::before{content:"";position:absolute;left:0;right:0;top:var(--sky);height:1.5px;background:var(--ink)}
+.sc{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-rows:var(--sky) auto;justify-items:start;-webkit-tap-highlight-color:transparent}
+.sc .sk{align-self:end;display:flex;align-items:flex-end;gap:var(--gp);color:var(--draft);transition:color .35s ease}
+.sc .sk i{color:inherit;display:block;flex:none;width:var(--bw);height:calc(var(--n) * var(--fl));
+  background:repeating-linear-gradient(to top,currentColor 0 calc(var(--fl) - 1px),transparent calc(var(--fl) - 1px) var(--fl));
+  transition:height .6s cubic-bezier(.34,1.56,.64,1) calc(var(--j) * 24ms)}
+.sc:hover .sk,.sc:focus-visible .sk,.sc.on .sk{color:var(--ink)}
+.sc.sig .sk{color:var(--coral)}
+.sc:hover .sk i,.sc:focus-visible .sk i{height:calc((var(--n) + 1) * var(--fl))}
+.sc-l{padding-top:clamp(14px,1.8vh,24px);display:grid;row-gap:.5em;color:var(--ink70);transition:color .3s ease}
+.sc-l .n{font:500 12px/1 var(--f);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.sc-l .nm{font-size:var(--d4);line-height:1.18;letter-spacing:-.008em;max-width:8.6em;text-wrap:balance}
+.sc:hover .sc-l,.sc.on .sc-l{color:var(--ink)}
+.sc.on .nm{font-weight:500}
+.sc:focus-visible{outline:2px solid var(--coral);outline-offset:8px}
+.svc-city.pre .sk i{clip-path:inset(100% 0 0 0)}
+.svc-city.built .sk i{clip-path:inset(0 0 0 0);
+  transition:clip-path calc(var(--n) * 60ms) steps(var(--n),end) calc(var(--c) * 150ms + var(--j) * 40ms),height .6s cubic-bezier(.34,1.56,.64,1) calc(var(--j) * 24ms)}
+.svc-p{margin-top:11vh}
+.sp-p{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--g);row-gap:5vh;align-items:start}
+.sp-p[hidden]{display:none}
+.sp-a{grid-column:1/7}
+.sp-a h3{margin-top:.6em;font-weight:300;max-width:11em;text-wrap:balance}
+.sp-t{grid-column:8/13;padding-top:.3em}
+.sp-t .ld{font-size:var(--d4);line-height:1.25;font-weight:500;max-width:22em}
+.sp-t .bd{margin-top:.9em;color:var(--ink70);max-width:30em}
+.sp-p .it{grid-column:8/13;display:grid;grid-template-columns:1fr 1fr;column-gap:var(--g);row-gap:.85em;font-size:var(--small);line-height:1.4}
+.sp-p .it li{display:flex;gap:.8em;align-items:baseline}
+.sp-p .it li::before{content:"";flex:none;width:1.1em;height:3px;background:var(--ink);transform:translateY(-.28em)}
+@media (max-width:760px){
+  .svc{padding:100px var(--m)}
+  .svc-city{--bw:6px;--gp:2px;--fl:10px;margin-top:56px;column-gap:6px}
+  .sc .sk i:nth-child(n+5){display:none}
+  .sc-l .nm{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .svc-p{margin-top:44px}
+  .sp-p{display:block}
+  .sp-t{margin-top:22px;padding-top:0} .sp-p .it{grid-template-columns:1fr;margin-top:26px} }
+@media (prefers-reduced-motion:reduce){ .sc .sk i{transition:none} }
+
+/* ---- page heads stand on a fine skyline: the six clusters at fine scale on one ground line beside the title.
+   On The Dept. the six clusters answer the six names: point at a name and its cluster is discovered in Signal. */
+.hz{grid-column:1/13;display:flex;align-items:flex-end;gap:clamp(28px,4.4vw,88px);border-bottom:1.5px solid var(--ink)}
+.hz .ag-t,.hz .ct-h{flex:none;padding-bottom:.17em}
+.hz-c{flex:1;min-width:0;container-type:inline-size;display:flex;justify-content:space-between;align-items:flex-end;--hu:clamp(2.6px,.33vw,5.2px)}
+.hz-k{display:flex;align-items:flex-end;gap:calc(100cqw / 220)}
+.hz-k i{display:block;width:calc(100cqw / 76);height:calc(var(--n) * var(--hu));background:var(--ink);transition:background-color .3s ease}
+.hz-ct{margin-bottom:0}
+.hz-ct .hz-c{--hu:clamp(2px,.24vw,4px)}
+@media (max-width:760px){
+  .hz{flex-wrap:wrap;row-gap:18px;gap:0 0}
+  .hz .ag-t,.hz .ct-h{flex:1 1 100%;padding-bottom:0}
+  .hz-c{flex:1 1 100%;--hu:2.2px;padding-top:4px}
+  .hz-ct .hz-c{--hu:2px} }
+.ag:has(a[data-p="0"]:hover,a[data-p="0"]:focus-visible) .hz-k:nth-child(1) i,
+.ag:has(a[data-p="1"]:hover,a[data-p="1"]:focus-visible) .hz-k:nth-child(2) i,
+.ag:has(a[data-p="2"]:hover,a[data-p="2"]:focus-visible) .hz-k:nth-child(3) i,
+.ag:has(a[data-p="3"]:hover,a[data-p="3"]:focus-visible) .hz-k:nth-child(4) i,
+.ag:has(a[data-p="4"]:hover,a[data-p="4"]:focus-visible) .hz-k:nth-child(5) i,
+.ag:has(a[data-p="5"]:hover,a[data-p="5"]:focus-visible) .hz-k:nth-child(6) i{background:var(--coral)}
+
+/* ---- How we show up: the same layers, with black only as a hint. The plane behind the paper sheet is Draft, the
+   three lines on it Ink; the page keeps one black moment, the home page's charcoal room. */
+.l3-plane{background:var(--draft)}
+.l3-m{color:var(--ink)}
+.l3-m span{color:var(--ink70)}
+.l3-end .lbl,.l3-end .u{color:var(--ink)}
+.l3-end .u{border-color:rgba(23,22,20,.45)}
+@media (max-width:760px){ .l3-m,.l3-end{background:var(--draft)} }
